@@ -1,4 +1,4 @@
-package com.education.trainingmicroservice.rest.controller;
+package com.education.trainingmicroservice.controller;
 
 import com.education.trainingmicroservice.dto.Status;
 import com.education.trainingmicroservice.service.HealthCheckService;
