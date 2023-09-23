@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: training-microservice-ingress
+  annotations:
+    ingressClassName: "nginx"
+spec:
+  rules:
+  - host: arch.homework
+    http:
+      paths:
+      - path: /health
+        pathType: Prefix
+        backend:
+          service:
+            name: training-microservice-service
+            port:
+              number: 80
+  - http:
+      paths:
+      - path: /health
+        pathType: Prefix
+        backend:
+          service:
+            name: training-microservice-service
+            port:
+              number: 80
