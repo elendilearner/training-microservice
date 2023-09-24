@@ -20,7 +20,7 @@ spec:
         name:  training-microservice
     spec:
       containers:
-      - image:  elendilearner/microservice-test:v1
+      - image:  elendilearner/microservice-test:v2
         name:  training-microservice-container
         resources:
           requests:

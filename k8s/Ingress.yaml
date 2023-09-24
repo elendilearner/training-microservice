@@ -4,13 +4,14 @@ metadata:
   name: training-microservice-ingress
   annotations:
     ingressClassName: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
   - host: arch.homework
     http:
       paths:
-      - path: /health
-        pathType: Prefix
+      - path: /otusapp/([^/]+)/?(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: training-microservice-service
