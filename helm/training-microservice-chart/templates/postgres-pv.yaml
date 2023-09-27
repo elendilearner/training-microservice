@@ -1,0 +1,38 @@
+{{- define "common.persistence.volume" -}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .name }}
+  labels:
+    type: {{ .labelsType }}
+spec:
+  storageClassName: {{ .storageClassName }}
+  capacity:
+    storage: {{ .capacity }}
+  accessModes:
+    {{- range .accessModes }}
+    - {{ . }}
+    {{- end }}
+  hostPath:
+    path: "{{ .hostPath }}"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .name }}-claim
+spec:
+  storageClassName: {{ .storageClassName }}
+  accessModes:
+    {{- range .accessModes }}
+    - {{ . }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .capacity }}
+{{- end -}}
+
+{{- if .Values.persistence.enabled }}
+{{- template "common.persistence.volume" .Values.persistence.persistentVolume }}
+{{- end }}

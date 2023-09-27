@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: training-microservice-config
+data:
+  DB_URL: jdbc:postgresql://postgres:5432/postgres
+  MICROSERVICE_PORT: "8000"

@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.app.name }}
+  labels:
+    name: {{ .Values.deployment.app.labels.name }}
+  annotation:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-weight: "1"
+spec:
+  replicas: {{ .Values.deployment.app.replicas }}
+  selector:
+    matchLabels:
+      name: {{ .Values.deployment.app.labels.name }}
+  strategy:
+    {{- toYaml .Values.deployment.app.strategy | nindent 4 }}
+  template:
+    metadata:
+      labels:
+        name: {{ .Values.deployment.app.labels.name }}
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
+      containers:
+        - name: {{ .Values.deployment.app.container.name }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            {{- toYaml .Values.deployment.app.container.resources | nindent 12 }}
+          livenessProbe:
+            {{- toYaml .Values.deployment.app.container.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.deployment.app.container.readinessProbe | nindent 12 }}
+          env:
+            - name: MICROSERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configmap.name }}
+                  key: MICROSERVICE_PORT
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configmap.name }}
+                  key: DB_URL
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.name }}
+                  key: POSTGRES_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.name }}
+                  key: POSTGRES_PASSWORD
+          ports:
+            - containerPort: {{ .Values.deployment.app.container.port }}
+      restartPolicy: {{ .Values.deployment.app.restartPolicy }}
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: In
+                    values:
+                      - ""

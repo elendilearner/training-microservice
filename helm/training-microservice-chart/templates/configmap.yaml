@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configmap.name }}
+data:
+  DB_URL: {{ .Values.configmap.db_url }}
+  MICROSERVICE_PORT: {{ .Values.configmap.microservice_port | quote }}
