@@ -1,0 +1,20 @@
+# Specifying Docker Compose version
+version: '3'
+# Describing services that will be run
+services:
+  # Name of the first and only service: training-microservice
+  training-microservice:
+    # Build configurations for this service
+    build:
+      # Specifying the build context, in this case, the current directory
+      context: .
+      # Specifying the path to the Dockerfile
+      dockerfile: Dockerfile
+    # Setting environment variables inside the container
+    environment:
+      # Setting the value of the MICROSERVICE_PORT variable to 8000
+      - MICROSERVICE_PORT=8000
+    # Exposing and mapping ports
+    ports:
+      # Mapping host port 8000 to container port 8000
+      - "8000:8000"

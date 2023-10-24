@@ -1,2 +1,8 @@
 server:
   port: ${MICROSERVICE_PORT}
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG

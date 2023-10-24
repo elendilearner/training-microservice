@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "618a1302-ed14-4305-9996-893b71a33c44",
+		"name": "tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12846348"
+	},
+	"item": [
+		{
+			"name": "homework_section_6",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    let data = pm.response.json();",
+							"    pm.expect(data).to.have.property('status');",
+							"    pm.expect(data.status).to.eql('OK');",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "arch.homework/otusapp/aeugene/health",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"otusapp",
+						"aeugene",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
