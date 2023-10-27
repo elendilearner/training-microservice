@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: liquibase
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: varchar(256)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(256)
+              - column:
+                  name: last_name
+                  type: varchar(256)
+              - column:
+                  name: phone
+                  type: varchar(256)
+              - column:
+                  name: created
+                  type: timestamp
+              - column:
+                  name: updated
+                  type: timestamp
+  - changeSet:
+      id: 2
+      author: liquibase
+      changes:
+        - createSequence:
+            sequenceName: users_seq
+            incrementBy: 50

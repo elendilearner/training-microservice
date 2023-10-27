@@ -17,12 +17,3 @@ spec:
                 name: training-microservice-service
                 port:
                   number: 80
-    - http:
-        paths:
-          - path: /health
-            pathType: Prefix
-            backend:
-              service:
-                name: training-microservice-service
-                port:
-                  number: 80

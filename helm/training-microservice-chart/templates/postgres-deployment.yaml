@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.postgresDeployment.name }}
+spec:
+  replicas: {{ .Values.deployment.postgresDeployment.replicas}}
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.postgresDeployment.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployment.postgresDeployment.name }}
+    spec:
+      containers:
+        - name: {{ .Values.deployment.postgresDeployment.name }}
+          image: {{ .Values.deployment.postgresDeployment.name }}:13
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.name }}
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.name }}
+                  key: POSTGRES_USER
+          ports:
+            - containerPort: {{ .Values.deployment.postgresDeployment.containerPort }}
+          volumeMounts:
+            - mountPath: {{ .Values.deployment.postgresDeployment.mountPath }}
+              name: {{ .Values.persistence.persistentVolume.name }}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+            limits:
+              cpu: "500m"
+              memory: "500Mi"
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.deployment.postgresDeployment.containerPort }}
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.deployment.postgresDeployment.containerPort }}
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+      volumes:
+        - name: {{ .Values.persistence.persistentVolume.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.persistentVolume.name }}-claim

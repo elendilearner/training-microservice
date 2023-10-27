@@ -1,0 +1,52 @@
+{{- if .Values.ingress.enabled }}
+{{- $fullname := include "training-microservice-chart.fullname" . }}
+
+{{- if .Values.ingress.commonIngress.paths }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullname }}-common
+spec:
+  ingressClassName: "{{ .Values.ingress.class }}"
+  rules:
+    - host: {{ .Values.ingress.commonIngress.host }}
+      http:
+        paths:
+          {{- range .Values.ingress.commonIngress.paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ $fullname }}-service
+                port:
+                  number: 80
+          {{- end }}
+{{- end }}
+
+---
+
+{{- if .Values.ingress.specificIngress.paths }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullname }}-specific
+  annotations:
+    {{- toYaml .Values.ingress.specificIngress.annotations | nindent 4 }}
+spec:
+  ingressClassName: "{{ .Values.ingress.class }}"
+  rules:
+    - host: {{ .Values.ingress.specificIngress.host }}
+      http:
+        paths:
+          {{- range .Values.ingress.specificIngress.paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ $fullname }}-service
+                port:
+                  number: 80
+          {{- end }}
+{{- end }}
+
+{{- end }}
