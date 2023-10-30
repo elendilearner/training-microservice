@@ -1,0 +1,32 @@
+apiVersion: v1
+entries:
+  training-microservice-chart:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-10-30T23:35:47.76087+03:00"
+    dependencies:
+    - name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 25.4.0
+    description: A Helm chart for Kubernetes
+    digest: 6129db160623fe3468fa59b5479f4083fe379f96eef047a7afb5812dec5aba66
+    name: training-microservice-chart
+    type: application
+    urls:
+    - training-microservice-chart-0.1.0.tgz
+    version: 0.1.0
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-10-30T23:35:47.766475+03:00"
+    dependencies:
+    - name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 25.4.0
+    description: A Helm chart for Kubernetes
+    digest: b7689a13e0b3178a9fded15d9542c4e5110f52cd6b130c0b46a684f4eaf891d6
+    name: training-microservice-chart
+    type: application
+    urls:
+    - charts/training-microservice-chart-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-10-30T23:35:47.754828+03:00"
