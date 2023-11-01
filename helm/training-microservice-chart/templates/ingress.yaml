@@ -17,7 +17,7 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ $fullname }}-service
+                name: {{ .Values.service.app.name }}
                 port:
                   number: 80
           {{- end }}
@@ -43,7 +43,7 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ $fullname }}-service
+                name: {{ .Values.service.app.name }}
                 port:
                   number: 80
           {{- end }}
