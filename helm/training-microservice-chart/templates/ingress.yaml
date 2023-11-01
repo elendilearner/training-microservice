@@ -50,4 +50,29 @@ spec:
           {{- end }}
 {{- end }}
 
+---
+
+{{- if .Values.ingress.externalIngress.paths }}
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullname }}-external
+spec:
+  ingressClassName: "{{ .Values.ingress.class }}"
+  rules:
+    - host: "external"
+      http:
+        paths:
+          {{- range .Values.ingress.externalIngress.paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ $serviceName }}
+                port:
+                  number: 80
+          {{- end }} 
+{{- end }}
+
 {{- end }}

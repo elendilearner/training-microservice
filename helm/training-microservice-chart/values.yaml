@@ -16,7 +16,6 @@ secret:
 ingress:
   enabled: true
   class: nginx
-
   specificIngress:
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -24,13 +23,16 @@ ingress:
     paths:
       - path: /otusapp/([^/]+)/?(.*)
         pathType: ImplementationSpecific
-
   commonIngress:
     host: arch.homework
     paths:
       - path: /health
         pathType: Prefix
       - path: /api/v1/user
+        pathType: Prefix
+  externalIngress:
+    paths:
+      - path: /health
         pathType: Prefix
 
 service:
