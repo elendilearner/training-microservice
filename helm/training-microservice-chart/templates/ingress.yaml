@@ -61,8 +61,7 @@ metadata:
 spec:
   ingressClassName: "{{ .Values.ingress.class }}"
   rules:
-    - host: "external"
-      http:
+    - http:
         paths:
           {{- range .Values.ingress.externalIngress.paths }}
           - path: {{ .path }}
