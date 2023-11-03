@@ -8,7 +8,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      name: {{ .Values.deployment.app.name }}
+      name: {{ .Values.service.app.selector }}
   endpoints:
     - port: http
       targetPort: {{ index .Values.service.app.ports 0 "targetPort" }}
