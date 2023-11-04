@@ -1,6 +1,6 @@
 image:
   repository: elendilearner/microservice-test
-  tag: v3
+  tag: v4
   pullPolicy: Always
 
 configmap:
