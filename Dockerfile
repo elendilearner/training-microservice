@@ -16,6 +16,9 @@ FROM openjdk:17-jdk-slim
 # Setting the working directory for the run stage
 WORKDIR /app
 
+# Installing curl in the container
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 # Copying the JAR file from the build stage ("build") to the working directory of the current stage
 COPY --from=build /app/target/training-microservice.jar .
 
