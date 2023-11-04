@@ -22,6 +22,27 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: {{ .Values.service.metrics.name }}
+  labels:
+    app: {{ .Values.service.metrics.labels.app }}
+    service-type: {{ .Values.service.metrics.labels.serviceType }}
+spec:
+  selector:
+    name: {{ .Values.service.app.selector }}
+  type: ClusterIP
+  ports:
+      {{- range .Values.service.metrics.ports }} 
+      - name: metrics
+        protocol: TCP
+        port: {{ .port }}
+        targetPort: {{ .targetPort }}
+      {{- end}}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
   name: {{ .Values.service.db.name }}
 spec:
   selector:

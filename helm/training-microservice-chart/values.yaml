@@ -47,6 +47,15 @@ service:
     ports:
       - port: 80
         targetPort: 8000
+  metrics:
+    name: training-microservice-service-metrics
+    selector: training-microservice
+    labels:
+      app: training-microservice-metrics
+      serviceType: training-microservice-service-metrics
+    ports:
+      - port: 80
+        targetPort: 8000
   db:
     name: postgres
     selector: postgres
