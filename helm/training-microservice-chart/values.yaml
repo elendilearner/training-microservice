@@ -59,7 +59,7 @@ deployment:
     name: training-microservice-deployment
     labels:
       name: training-microservice
-    replicas: 2
+    replicas: 1
     strategy:
       rollingUpdate:
         maxSurge: 0
