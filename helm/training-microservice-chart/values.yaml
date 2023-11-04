@@ -32,7 +32,7 @@ ingress:
         pathType: Prefix
   externalIngress:
     paths:
-      - path: /training-microservice/health
+      - path: /health
         pathType: Prefix
 
 service:
