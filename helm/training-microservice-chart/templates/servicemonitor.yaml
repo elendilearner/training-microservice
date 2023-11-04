@@ -4,7 +4,7 @@ metadata:
   name: {{ include "training-microservice-chart.name" . }}-monitor
   labels:
     app: {{ include "training-microservice-chart.name" . }}
-    release: {{ .Release.Name }}
+    release: prometheus
 spec:
   selector:
     matchLabels:
