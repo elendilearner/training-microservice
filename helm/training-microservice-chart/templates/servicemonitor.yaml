@@ -8,9 +8,9 @@ metadata:
 spec:
   selector:
     matchLabels:
-      name: {{ .Values.service.metrics.labels.app }}
+      app: {{ .Values.service.app.labels.app }}
   endpoints:
-    - port: metrics
+    - port: http
       targetPort: 8000
       path: /actuator/prometheus
       interval: 15s
