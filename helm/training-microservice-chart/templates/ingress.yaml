@@ -7,6 +7,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $fullname }}-common
+  annotations:
+    nginx.ingress.kubernetes.io/enable-prometheus-metrics: "true"
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location = /api/v1/user {
+        prometheus_request_duration_seconds_bucket{le="0.1"} 0;
+        prometheus_request_duration_seconds_bucket{le="0.2"} 0;
+      }
 spec:
   ingressClassName: "{{ .Values.ingress.class }}"
   rules:
