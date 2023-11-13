@@ -78,6 +78,10 @@ To enable Prometheus metrics monitoring in your Kubernetes cluster:
     ```bash
     helm install prometheus prometheus-community/kube-prometheus-stack
     ```
+   
+   ```bash
+   helm install prometheus . --set grafana.env.GF_SERVER_ROOT_URL="http://yourIp/grafana/"
+   ```
 
    This will deploy Prometheus Operator which can discover and leverage `ServiceMonitor` resources.
 

@@ -898,6 +898,8 @@ alertmanager:
 ## Using default values from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
 ##
 grafana:
+  env:
+    GF_SERVER_SERVE_FROM_SUB_PATH: "true"
   enabled: true
   namespaceOverride: ""
 
