@@ -102,13 +102,13 @@ kind: Ingress
 metadata:
   name: grafana-external
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: "{{ .Values.ingress.class }}"
   rules:
   - http:
       paths:
-      - path: /grafana/(.*)
+      - path: /grafana(/|$)(.*)
         pathType: Prefix
         backend:
           service:
