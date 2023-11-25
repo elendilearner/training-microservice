@@ -1,0 +1,10 @@
+FROM node:16
+
+# Install Newman
+RUN npm install -g newman
+
+# Add your Postman collection
+ADD ./user_service.postman_collection.json /user_service.postman_collection.json
+
+# Run tests in a loop with a 20-second sleep interval
+CMD while true; do newman run /user_service.postman_collection.json; sleep 20; done
