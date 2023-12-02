@@ -31,6 +31,6 @@ spec:
     matchNames:
       - ingress
   endpoints:
-    - port: health
+    - port: metrics
       interval: 30s
       path: /metrics
