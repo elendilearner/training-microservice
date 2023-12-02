@@ -1,17 +1,14 @@
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
+apiVersion: v1
+kind: Service
 metadata:
-  name: nginx-ingress-controller
+  name: nginx-ingress-microk8s
+  namespace: ingress
   labels:
-    release: prometheus
+    name: nginx-ingress-microk8s
 spec:
+  ports:
+    - name: metrics
+      port: 10254
+      targetPort: 10254
   selector:
-    matchLabels:
-      name: nginx-ingress-microk8s
-  namespaceSelector:
-    matchNames:
-      - ingress
-  endpoints:
-    - port: metrics
-      interval: 30s
-      path: /metrics
+    name: nginx-ingress-microk8s
