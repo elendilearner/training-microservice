@@ -576,7 +576,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(http_requests_total{status=\"500\"}[5m]))",
+          "expr": "sum(rate(nginx_ingress_controller_requests{status=\"500\", job=\"nginx-ingress-microk8s\"}[5m]))",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -602,6 +602,6 @@
   "timezone": "",
   "title": "ingress common",
   "uid": "a9e99aa9-c158-4074-87bb-61db1e6081e6",
-  "version": 9,
+  "version": 10,
   "weekStart": ""
 }
