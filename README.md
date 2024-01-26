@@ -62,7 +62,34 @@ helm upgrade release-1 .
 
 Wait for the installation to complete.
 
-### 7. Running the Tests
+### 7. Monitoring with Prometheus
+
+To enable Prometheus metrics monitoring in your Kubernetes cluster:
+
+1. Add the Prometheus community Helm repo:
+
+    ```bash
+    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    helm repo update
+    ```
+
+2. Install the kube-prometheus-stack Helm chart:
+
+    ```bash
+    helm install prometheus prometheus-community/kube-prometheus-stack
+    ```
+   
+   alternative
+
+    ```bash
+    helm install prometheus . --set grafana.env.GF_SERVER_ROOT_URL="//yourIp/grafana/"
+    ```
+
+   This will deploy Prometheus Operator which can discover and leverage `ServiceMonitor` resources.
+
+3. Deploy your Helm release with a `ServiceMonitor`. Prometheus will now automatically discover the endpoint and collect metrics for your application.
+
+### 8. Running the Tests
 
 After setting up, navigate to the test directory:
 

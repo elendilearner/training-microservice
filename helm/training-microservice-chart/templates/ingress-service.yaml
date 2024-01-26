@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ingress-microk8s
+  namespace: ingress
+  labels:
+    name: nginx-ingress-microk8s
+spec:
+  ports:
+    - name: metrics
+      port: 10254
+      targetPort: 10254
+  selector:
+    name: nginx-ingress-microk8s

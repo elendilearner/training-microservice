@@ -10,8 +10,11 @@ COPY . .
 # Executing the project build using Maven
 RUN mvn clean install
 
-# Specifying that for the run stage, we will use the lightweight OpenJDK 17 JDK image
-FROM openjdk:17-jdk-slim
+# Specifying that for the run stage, we will use Alpine image with OpenJDK 17
+FROM openjdk:17-alpine
+
+# Installing curl and cleaning up to keep the image small
+RUN apk --no-cache add curl
 
 # Setting the working directory for the run stage
 WORKDIR /app
